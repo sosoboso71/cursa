@@ -1,19 +1,49 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
     <title>Neon Runner</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: transparent !important;
+            overflow: hidden;
+        }
+
+        #gameCanvas {
+            position: relative;
+            width: 1920px;
+            height: 1080px;
+            margin: 0 auto;
+            background: transparent !important;
+            overflow: hidden;
+        }
+
+        /* LAYERE FIXE, NU MAI INFLUENȚEAZĂ POZIȚIA */
+        #platformContainer,
+        #fxContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: transparent !important;
+        }
+    </style>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- CONTAINERELE TREBUIE SĂ FIE ÎN AFARA gameCanvas -->
     <div id="platformContainer"></div>
     <div id="fxContainer"></div>
 
     <div id="gameCanvas">
-        <div id="scoreText" style="display:none;"
-</div>
+        <div id="scoreText">0 metri</div>
         <div id="scoreboard"></div>
         <div id="commandLog"></div>
     </div>
