@@ -182,8 +182,8 @@ function resetGame() {
     distance = 0;
     updateDistanceUI();
 
-    playerX = 220;
-    playerY = 500;
+    playerX = 300;
+    playerY = 300;
     jumpState = "none";
 
     platforms.forEach(p => p.el.remove());
