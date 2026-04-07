@@ -182,7 +182,7 @@ function resetGame() {
     distance = 0;
     updateDistanceUI();
 
-    playerX = 300;
+    playerX = 220;
     playerY = 300;
     jumpState = "none";
 
