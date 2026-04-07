@@ -184,12 +184,13 @@ function resetGame() {
 
     playerX = 220;
     playerY = 300;
+    landingY = 300;
     jumpState = "none";
 
     platforms.forEach(p => p.el.remove());
     platforms.length = 0;
 
-    createPlatform(200, 620, "start", 1);
+    createPlatform(200, 540, "start", 1);
     onPlatform = true;
 }
 // =============================
