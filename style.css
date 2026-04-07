@@ -163,3 +163,7 @@ html, body {
     pointer-events: none;
     z-index: 200000;
 }
+#scoreText {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
