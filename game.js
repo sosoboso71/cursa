@@ -17,13 +17,13 @@ const SCROLL_SPEED = 4;
 // STARE JOC
 // =============================
 let playerX = 220;
-let playerY = 500;
+let playerY = 300;
 let onPlatform = true;
 let likeCounter = 0;
 let globalLikeCounter = 0;
 let jumpState = "none"; // none, up, down
 let jumpPeak = 0;
-let landingY = 500;
+let landingY = 300;
 
 let distance = 0;
 
@@ -68,7 +68,7 @@ function spawnPlatform(type, profileUrl, user, power) {
     const x = 600;
 
     // poziție PERFECTĂ (identică cu platforma de start)
-    const y = 620;
+    const y = 540;
 
     createPlatform(x, y, type, power);
 
@@ -168,7 +168,7 @@ function gameLoop() {
     player.style.top = playerY + "px";
 
     hudPlatform.style.left = (playerX - 20) + "px";
-    hudPlatform.style.top = "640px";
+    hudPlatform.style.top = "460px";
 
     updatePlatforms();
     handleCollisions();
