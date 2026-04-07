@@ -1,9 +1,9 @@
- // =============================
+// =============================
 // REFERINȚE
 // =============================
 const platformContainer = document.getElementById("platformContainer");
 const fxContainer = document.getElementById("fxContainer");
-const scoreText = document.getElementById("scoreText");
+const scoreText = document.getElementById("scoreText"); // ascuns în CSS
 
 // =============================
 // CONSTANTE
@@ -19,13 +19,12 @@ const SCROLL_SPEED = 4;
 let playerX = 220;
 let playerY = 300;
 let onPlatform = true;
-let likeCounter = 0;
-let globalLikeCounter = 0;
 let jumpState = "none"; // none, up, down
 let jumpPeak = 0;
 let landingY = 300;
 
 let distance = 0;
+let globalLikeCounter = 0;
 
 const platforms = [];
 
@@ -38,19 +37,23 @@ player.style.left = playerX + "px";
 player.style.top = playerY + "px";
 player.innerHTML = `<img src="stickman.gif" class="player-img">`;
 platformContainer.appendChild(player);
-// PLATFORMĂ HUD — stickman-ul aleargă pe ea
+
+// =============================
+// HUD PLATFORM — platforma pe care aleargă stickman-ul
+// =============================
 const hudPlatform = document.createElement("div");
 hudPlatform.className = "hud-platform";
 hudPlatform.textContent = "0 metri";
 platformContainer.appendChild(hudPlatform);
+
 // =============================
 // UI
 // =============================
 function updateDistanceUI() {
     const text = distance + " metri";
-    scoreText.textContent = text;
-    hudPlatform.textContent = text; // actualizăm și platforma HUD
+    hudPlatform.textContent = text; // doar HUD-ul, scoreText e ascuns
 }
+
 // =============================
 // PLATFORME
 // =============================
@@ -66,9 +69,7 @@ function createPlatform(x, y, type = "start", power = 1) {
 
 function spawnPlatform(type, profileUrl, user, power) {
     const x = 600;
-
-    // poziție PERFECTĂ (identică cu platforma de start)
-    const y = 540;
+    const y = 540; // poziție fixă, identică cu platforma de start
 
     createPlatform(x, y, type, power);
 
@@ -130,7 +131,6 @@ function handleCollisions() {
             landingY = pTop - PLAYER_HEIGHT;
             onPlatform = true;
 
-            // AICI SE DAU METRII O SINGURĂ DATĂ
             if (p.isNew) {
                 distance += p.power;
                 updateDistanceUI();
@@ -144,11 +144,13 @@ function handleCollisions() {
         }
     }
 }
+
 // =============================
-// GAME LOOP (FĂRĂ GRAVITAȚIE)
+// GAME LOOP
 // =============================
 function gameLoop() {
 
+    // SĂRITURĂ
     if (jumpState === "up") {
         playerY -= 12;
         if (playerY <= jumpPeak) {
@@ -164,17 +166,20 @@ function gameLoop() {
         }
     }
 
+    // POZIȚIE STICKMAN
     player.style.left = playerX + "px";
     player.style.top = playerY + "px";
 
+    // HUD — FIX SUB STICKMAN
     hudPlatform.style.left = (playerX - 20) + "px";
-    hudPlatform.style.top = (playerY + PLAYER_HEIGHT + 10) + "px";
+    hudPlatform.style.top = (landingY + PLAYER_HEIGHT + 10) + "px";
 
     updatePlatforms();
     handleCollisions();
 
     requestAnimationFrame(gameLoop);
 }
+
 // =============================
 // RESET
 // =============================
@@ -193,6 +198,7 @@ function resetGame() {
     createPlatform(200, 540, "start", 1);
     onPlatform = true;
 }
+
 // =============================
 // WEBSOCKET
 // =============================
@@ -217,15 +223,16 @@ ws.onmessage = (event) => {
 
         if (globalLikeCounter >= 100) {
             globalLikeCounter = 0;
-            return spawnPlatform("like", profileUrl, user, 1);
+            spawnPlatform("like", profileUrl, user, 1);
         }
+        return;
     }
 
     // CHAT — emoji = 1 metru
     if (ev === "chat") {
         const msg = data.comment || "";
         if (/[❤️😂🔥😍💥✨⭐]/.test(msg)) {
-            return spawnPlatform("emoji", profileUrl, user, 1);
+            spawnPlatform("emoji", profileUrl, user, 1);
         }
         return;
     }
@@ -234,9 +241,11 @@ ws.onmessage = (event) => {
     if (ev === "gift") {
         const d = data.diamondCount || 1;
         const type = d >= 20 ? "gift-big" : "gift-small";
-        return spawnPlatform(type, profileUrl, user, d);
+        spawnPlatform(type, profileUrl, user, d);
+        return;
     }
 };
+
 // =============================
 // START
 // =============================
