@@ -1,8 +1,8 @@
  /* RESET GLOBAL */
-body {
+html, body {
     margin: 0;
     padding: 0;
-    background: black;
+    background: transparent !important;
 }
 
 /* CANVAS */
@@ -11,8 +11,8 @@ body {
     width: 1920px;
     height: 1080px;
     overflow: hidden;
-    background: radial-gradient(circle at top, #020824 0%, #000000 60%);
-    z-index: 1; /* <-- IMPORTANT: canvas-ul rămâne sub platforme */
+    background: transparent !important; /* eliminăm gradientul */
+    z-index: 1;
 }
 
 /* Containere joc */
@@ -23,7 +23,8 @@ body {
     height: 100%;
     pointer-events: none;
     overflow: visible;
-    z-index: 9999; /* <-- RIDICĂ TOT CE E ÎNĂUNTRU */
+    background: transparent !important;
+    z-index: 9999;
 }
 
 /* STICKMAN */
@@ -32,6 +33,7 @@ body {
     width: 120px;
     height: 120px;
     z-index: 10;
+    background: transparent !important;
 }
 
 .player-img {
@@ -42,7 +44,7 @@ body {
     pointer-events: none;
 }
 
-/* PLATFORME — COMPLETATE */
+/* PLATFORME */
 .platform {
     position: absolute;
     min-width: 200px;
@@ -56,25 +58,25 @@ body {
     font-family: Arial, sans-serif;
     font-size: 18px;
     white-space: nowrap;
-    box-shadow: 0 0 25px rgba(0,0,0,0.5);
-    z-index: 99999; /* <-- PLATFORMELE SUNT DEASUPRA TUTUROR */
+    background: transparent !important; /* IMPORTANT */
+    z-index: 99999;
 }
 
-/* TIPURI DE PLATFORME */
+/* TIPURI DE PLATFORME — doar culoare, fără fundal opac */
 .platform-like {
-    background: rgba(0, 150, 255, 0.75);
+    background: rgba(0, 150, 255, 0.75) !important;
 }
 
 .platform-emoji {
-    background: rgba(255, 200, 0, 0.75);
+    background: rgba(255, 200, 0, 0.75) !important;
 }
 
 .platform-gift-small {
-    background: rgba(255, 0, 150, 0.75);
+    background: rgba(255, 0, 150, 0.75) !important;
 }
 
 .platform-gift-big {
-    background: rgba(255, 0, 0, 0.85);
+    background: rgba(255, 0, 0, 0.85) !important;
     height: 60px;
     font-size: 20px;
     font-weight: bold;
@@ -113,6 +115,7 @@ body {
     text-shadow: 0 0 20px #33ccff;
     font-family: Arial, sans-serif;
     z-index: 9999;
+    background: transparent !important;
 }
 
 /* TOP 5 */
@@ -139,29 +142,22 @@ body {
     color: #ffffff;
     text-shadow: 0 0 15px #ff00ff;
     font-family: Arial, sans-serif;
-} 
-#scoreText {
-    position: absolute;
-    color: #00eaff;
-    font-size: 32px;
-    font-weight: 700;
-    text-shadow: 0 0 12px #00eaff;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s linear;
+    background: transparent !important;
 }
+
+/* HUD PLATFORM */
 .hud-platform {
     position: absolute;
-    width: 180px;          /* mai mică */
-    height: 30px;          /* mai subțire */
-    background: rgba(0, 200, 255, 0.35);
+    width: 180px;
+    height: 30px;
+    background: rgba(0, 200, 255, 0.35) !important;
     border-radius: 8px;
     box-shadow: 0 0 15px #00eaffaa;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #00eaff;
-    font-size: 20px;       /* text mai mic */
+    font-size: 20px;
     font-weight: bold;
     text-shadow: 0 0 8px #00eaff;
     pointer-events: none;
