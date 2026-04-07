@@ -44,6 +44,11 @@ platformContainer.appendChild(player);
 const hudPlatform = document.createElement("div");
 hudPlatform.className = "hud-platform";
 hudPlatform.textContent = "0 metri";
+
+// ❗ POZIȚIE INIȚIALĂ — OBLIGATORIU
+hudPlatform.style.left = (playerX - 20) + "px";
+hudPlatform.style.top = (playerY + PLAYER_HEIGHT + 10) + "px";
+
 platformContainer.appendChild(hudPlatform);
 
 // =============================
@@ -170,7 +175,7 @@ function gameLoop() {
     player.style.left = playerX + "px";
     player.style.top = playerY + "px";
 
-    // HUD — FIX SUB STICKMAN
+    // HUD — FIX SUB STICKMAN (corect)
     hudPlatform.style.left = (playerX - 20) + "px";
     hudPlatform.style.top = (playerY + PLAYER_HEIGHT + 10) + "px";
 
@@ -199,6 +204,58 @@ function resetGame() {
     onPlatform = true;
 }
 
+// =============================
+// WEBSOCKET
+// =============================
+const ws = new WebSocket("ws://localhost:62024");
+
+ws.onmessage = (event) => {
+    let packet;
+    try { 
+        packet = JSON.parse(event.data); 
+    } catch(e) { 
+        return; 
+    }
+
+    const ev = packet.event;
+    const data = packet.data || {};
+    const user = data.nickname || data.uniqueId || "Anonim";
+    const profileUrl = data.profilePictureUrl || "";
+
+    // LIKE — 1 metru la fiecare 100 like-uri
+    if (ev === "like") {
+        globalLikeCounter++;
+
+        if (globalLikeCounter >= 100) {
+            globalLikeCounter = 0;
+            spawnPlatform("like", profileUrl, user, 1);
+        }
+        return;
+    }
+
+    // CHAT — emoji = 1 metru
+    if (ev === "chat") {
+        const msg = data.comment || "";
+        if (/[❤️😂🔥😍💥✨⭐]/.test(msg)) {
+            spawnPlatform("emoji", profileUrl, user, 1);
+        }
+        return;
+    }
+
+    // GIFT — diamante = metri
+    if (ev === "gift") {
+        const d = data.diamondCount || 1;
+        const type = d >= 20 ? "gift-big" : "gift-small";
+        spawnPlatform(type, profileUrl, user, d);
+        return;
+    }
+};
+
+// =============================
+// START
+// =============================
+resetGame();
+gameLoop();
 // =============================
 // WEBSOCKET
 // =============================
