@@ -172,7 +172,7 @@ function gameLoop() {
 
     // HUD — FIX SUB STICKMAN
     hudPlatform.style.left = (playerX - 20) + "px";
-    hudPlatform.style.top = (landingY + PLAYER_HEIGHT + 10) + "px";
+    hudPlatform.style.top = (playerY + PLAYER_HEIGHT + 10) + "px";
 
     updatePlatforms();
     handleCollisions();
