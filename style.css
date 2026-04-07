@@ -1,4 +1,4 @@
- /* RESET GLOBAL */
+/* RESET GLOBAL */
 html, body {
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@ html, body {
     width: 1920px;
     height: 1080px;
     overflow: hidden;
-    background: transparent !important; /* eliminăm gradientul */
+    background: transparent !important;
     z-index: 1;
 }
 
@@ -19,12 +19,14 @@ html, body {
 #platformContainer,
 #fxContainer {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
     overflow: visible;
     background: transparent !important;
-    z-index: 9999;
+    z-index: 1000;
 }
 
 /* STICKMAN */
@@ -32,7 +34,7 @@ html, body {
     position: absolute;
     width: 120px;
     height: 120px;
-    z-index: 10;
+    z-index: 5000;
     background: transparent !important;
 }
 
@@ -58,11 +60,11 @@ html, body {
     font-family: Arial, sans-serif;
     font-size: 18px;
     white-space: nowrap;
-    background: transparent !important; /* IMPORTANT */
-    z-index: 99999;
+    background: transparent !important;
+    z-index: 4000;
 }
 
-/* TIPURI DE PLATFORME — doar culoare, fără fundal opac */
+/* TIPURI DE PLATFORME */
 .platform-like {
     background: rgba(0, 150, 255, 0.75) !important;
 }
@@ -102,20 +104,13 @@ html, body {
     transform: scale(1);
     transition: 0.25s ease-out;
     pointer-events: none;
+    z-index: 3000;
 }
 
-/* UI DISTANȚĂ */
+/* UI DISTANȚĂ — ASCUNS COMPLET */
 #scoreText {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 48px;
-    font-weight: bold;
-    color: #33ccff;
-    text-shadow: 0 0 20px #33ccff;
-    font-family: Arial, sans-serif;
-    z-index: 9999;
-    background: transparent !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 /* TOP 5 */
@@ -131,6 +126,7 @@ html, body {
     box-shadow: 0 0 20px #33ccff55;
     color: white;
     font-family: Arial, sans-serif;
+    z-index: 6000;
 }
 
 /* LOG COMENZI */
@@ -143,9 +139,10 @@ html, body {
     text-shadow: 0 0 15px #ff00ff;
     font-family: Arial, sans-serif;
     background: transparent !important;
+    z-index: 6000;
 }
 
-/* HUD PLATFORM */
+/* HUD PLATFORM — TREBUIE SĂ FIE CEL MAI SUS */
 .hud-platform {
     position: absolute;
     width: 180px;
@@ -161,9 +158,5 @@ html, body {
     font-weight: bold;
     text-shadow: 0 0 8px #00eaff;
     pointer-events: none;
-    z-index: 200000;
-}
-#scoreText {
-    opacity: 0 !important;
-    pointer-events: none !important;
+    z-index: 999999 !important;
 }
